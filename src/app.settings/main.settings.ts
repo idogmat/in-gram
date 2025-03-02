@@ -14,7 +14,7 @@ const APP_PREFIX = '/api';
 export const applyAppSettings = (app: INestApplication): { port: number; env: string } => {
   const { port, env } = getEnv(app)
 
-  setAppPrefix(app);
+  // setAppPrefix(app);
 
   setSwagger(app, env);
 
