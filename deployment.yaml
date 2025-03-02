@@ -22,13 +22,18 @@ spec:
              - containerPort: PORT_CONTAINER
 
            env:
-             - name: NODE_ENV
-               valueFrom:
-                 secretKeyRef:
-                   name: myin-grma-production-config-secret
-                   key: NODE_ENV
              - name: APP_PORT
                valueFrom:
                  secretKeyRef:
-                   name: myin-grma-production-config-secret
+                   name: myin-gram-production-config-secret
                    key: APP_PORT
+             - name: APP_PREFIX
+               valueFrom:
+                 secretKeyRef:
+                   name: myin-gram-production-config-secret
+                   key: APP_PREFIX
+             - name: NODE_ENV
+               valueFrom:
+                 secretKeyRef:
+                   name: myin-gram-production-config-secret
+                   key: NODE_ENV

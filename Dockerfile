@@ -17,7 +17,7 @@ COPY --chown=node package*.json ./
 
 RUN yarn
 
-ENV PORT=3772
+ENV PORT=3773
 # Bundle app source code
 COPY --chown=node . .
 
