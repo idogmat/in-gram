@@ -36,22 +36,22 @@ const setAppPrefix = (app: INestApplication) => {
 };
 
 const setSwagger = (app: INestApplication, env: EnvironmentsTypes) => {
-  if (env !== EnvironmentMode.PRODUCTION) {
-    const swaggerPath = APP_PREFIX + '/swagger';
+  // if (env !== EnvironmentMode.PRODUCTION) {
+  const swaggerPath = APP_PREFIX + '/swagger';
 
-    const config = new DocumentBuilder()
-      .setTitle('in-gram')
-      .setDescription('API for control in-gram')
-      .setVersion('1.0')
-      // .addBearerAuth()
-      // .addBasicAuth()
-      .build();
+  const config = new DocumentBuilder()
+    .setTitle('in-gram')
+    .setDescription('API for control in-gram')
+    .setVersion('1.0')
+    // .addBearerAuth()
+    // .addBasicAuth()
+    .build();
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup(swaggerPath, app, document, {
-      customSiteTitle: 'in-gram Swagger',
-    });
-  }
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(swaggerPath, app, document, {
+    customSiteTitle: 'in-gram Swagger',
+  });
+  // }
 };
 
 const setAppPipes = (app: INestApplication) => {
