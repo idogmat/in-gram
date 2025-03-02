@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, ForbiddenException, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { EnhancedParseUUIDPipe } from 'src/app.settings/validation-pipe/parse-uuid.pipe';
 
@@ -16,5 +16,11 @@ export class AppController {
     @Param('id', new EnhancedParseUUIDPipe()) id: string,
   ): Promise<string> {
     return await this.appService.getHello();
+  }
+
+  @Get('/error')
+  async getForbidden(
+  ): Promise<string> {
+    throw new ForbiddenException()
   }
 }
