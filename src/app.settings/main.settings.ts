@@ -9,7 +9,7 @@ import { HttpExceptionFilter } from './exception-filter';
 import { ConfigService } from '@nestjs/config';
 // import { LoggingInterceptor } from '../utils/interceptors/logging.interceptor';
 
-const APP_PREFIX = '/api';
+const APP_PREFIX = '/api/v1';
 
 export const applyAppSettings = (app: INestApplication): { port: number; env: string } => {
   const { port, env } = getEnv(app)
@@ -36,22 +36,22 @@ const setAppPrefix = (app: INestApplication) => {
 };
 
 const setSwagger = (app: INestApplication, env: EnvironmentsTypes) => {
-  if (env !== EnvironmentMode.PRODUCTION) {
-    const swaggerPath = APP_PREFIX + '/swagger';
+  // if (env !== EnvironmentMode.PRODUCTION) {
+  const swaggerPath = APP_PREFIX + '/swagger';
 
-    const config = new DocumentBuilder()
-      .setTitle('in-gram')
-      .setDescription('API for control in-gram')
-      .setVersion('1.0')
-      // .addBearerAuth()
-      // .addBasicAuth()
-      .build();
+  const config = new DocumentBuilder()
+    .setTitle('in-gram')
+    .setDescription('API for control in-gram')
+    .setVersion('1.0')
+    // .addBearerAuth()
+    // .addBasicAuth()
+    .build();
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup(swaggerPath, app, document, {
-      customSiteTitle: 'in-gram Swagger',
-    });
-  }
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(swaggerPath, app, document, {
+    customSiteTitle: 'in-gram Swagger',
+  });
+  // }
 };
 
 const setAppPipes = (app: INestApplication) => {

@@ -11,16 +11,23 @@ export class AppController {
     return await this.appService.getHello();
   }
 
-  @Get(':id')
+  @Get('error')
+  async getForbidden(
+  ): Promise<string> {
+    throw new ForbiddenException()
+  }
+
+  @Get('error2')
+  async getForbidden2(
+  ): Promise<string> {
+    throw new ForbiddenException({ message: '2' })
+  }
+
+  @Get('user/:id')
   async getHelloId(
     @Param('id', new EnhancedParseUUIDPipe()) id: string,
   ): Promise<string> {
     return await this.appService.getHello();
   }
 
-  @Get('/error')
-  async getForbidden(
-  ): Promise<string> {
-    throw new ForbiddenException()
-  }
 }
