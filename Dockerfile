@@ -1,18 +1,30 @@
-# Dockerfile
-FROM node:18-alpine
+# Check out https://hub.docker.com/_/node to select a new base image
+FROM node:20.11-alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+# Set to a non-root built-in user `node`
+USER node
+
+# Create app directory (with user `node`)
+RUN mkdir -p /home/node/dist/app
+
+WORKDIR /home/node/dist/app
 
 # Install app dependencies
-COPY package*.json ./
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+
+COPY --chown=node package*.json ./
+
 RUN yarn
 
-# Bundle app source
-COPY . .
+ENV PORT=3772
+# Bundle app source code
+COPY --chown=node . .
 
-# Expose the port the app runs on
-EXPOSE 3003
+RUN yarn build
 
-# Command to run the application
-CMD ["yarn", "start:debug"]
+# Bind to all network interfaces so that it can be mapped to the host OS
+
+EXPOSE ${PORT}
+
+CMD [ "yarn", "start" ]
