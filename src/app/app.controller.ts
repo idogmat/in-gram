@@ -11,6 +11,11 @@ export class AppController {
     return await this.appService.getHello();
   }
 
+  @Get('by')
+  async getBy(): Promise<string> {
+    return await this.appService.getBy();
+  }
+
   @Get(':id')
   async getHelloId(
     @Param('id', new EnhancedParseUUIDPipe()) id: string,

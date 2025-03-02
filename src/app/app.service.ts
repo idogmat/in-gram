@@ -9,4 +9,8 @@ export class AppService {
   async getHello(): Promise<string> {
     return 'Hello World!';
   }
+
+  async getBy(): Promise<string> {
+    return 'Good by World!';
+  }
 }
