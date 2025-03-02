@@ -23,4 +23,9 @@ export class AppController {
   ): Promise<string> {
     throw new ForbiddenException()
   }
+  @Get('/error2')
+  async getForbidden2(
+  ): Promise<string> {
+    throw new ForbiddenException({ message: '2' })
+  }
 }
