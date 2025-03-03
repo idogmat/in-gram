@@ -15,16 +15,16 @@ WORKDIR /home/node/dist/app
 
 COPY --chown=node package*.json ./
 
-RUN npm install
+RUN yarn
 
-ENV PORT=3773
+ENV PORT=3772
 # Bundle app source code
 COPY --chown=node . .
 
-RUN npm run build
+RUN yarn build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
 
 EXPOSE ${PORT}
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]
