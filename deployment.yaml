@@ -27,11 +27,6 @@ spec:
                  secretKeyRef:
                    name: myin-gram-production-config-secret
                    key: APP_PORT
-             - name: APP_PREFIX
-               valueFrom:
-                 secretKeyRef:
-                   name: myin-gram-production-config-secret
-                   key: APP_PREFIX
              - name: NODE_ENV
                valueFrom:
                  secretKeyRef:
