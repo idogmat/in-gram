@@ -1,22 +1,30 @@
-#Устанавливаем зависимости
-FROM node:20.11-alpine as dependencies
-WORKDIR /app
-COPY package*.json ./
+# Check out https://hub.docker.com/_/node to select a new base image
+FROM node:20.11-alpine
+
+# Set to a non-root built-in user `node`
+USER node
+
+# Create app directory (with user `node`)
+RUN mkdir -p /home/node/dist/app
+
+WORKDIR /home/node/dist/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+
+COPY --chown=node package*.json ./
+
 RUN npm install
 
-#Билдим приложение
-#Кэширование зависимостей — если файлы в проекте изменились,
-#но package.json остался неизменным, то стейдж с установкой зависимостей повторно не выполняется, что экономит время.
-FROM node:20.11-alpine as builder
-WORKDIR /app
-COPY . .
-COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm run build:production
+ENV PORT=3773
+# Bundle app source code
+COPY --chown=node . .
 
-#Стейдж запуска
-FROM node:20.11-alpine as runner
-WORKDIR /app
-ENV NODE_ENV production
-COPY --from=builder /app/ ./
-EXPOSE 3000
-CMD ["npm", "start"]
+RUN npm run build
+
+# Bind to all network interfaces so that it can be mapped to the host OS
+
+EXPOSE ${PORT}
+
+CMD [ "npm", "start" ]
