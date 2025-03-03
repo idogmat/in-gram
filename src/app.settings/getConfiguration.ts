@@ -17,7 +17,6 @@ export const getConfiguration = () => {
       ? process.env.NODE_ENV.trim()
       : 'DEVELOPMENT') as EnvironmentsTypes,
     APP_PORT: process.env.APP_PORT,
-    APP_PREFIX: process.env.APP_PREFIX,
     DB: {
       type: 'postgres',
       host: process.env.DB_HOST,

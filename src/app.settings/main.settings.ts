@@ -9,13 +9,14 @@ import { HttpExceptionFilter } from './exception-filter';
 import { ConfigService } from '@nestjs/config';
 // import { LoggingInterceptor } from '../utils/interceptors/logging.interceptor';
 
+const APP_PREFIX = '/api/v1';
 
 export const applyAppSettings = (app: INestApplication): { port: number; env: string } => {
-  const { port, env, prefix } = getEnv(app)
+  const { port, env } = getEnv(app)
 
-  setAppPrefix(app, prefix);
+  setAppPrefix(app, APP_PREFIX);
 
-  setSwagger(app, prefix);
+  setSwagger(app, APP_PREFIX);
 
   setAppPipes(app);
 
@@ -27,8 +28,8 @@ const getEnv = (app: INestApplication) => {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('APP_PORT') || 3003;
   const env = configService.get<EnvironmentsTypes>('NODE_ENV');
-  const prefix = configService.get<string>('APP_PREFIX');
-  return { port, env, prefix }
+  // const prefix = configService.get<string>('APP_PREFIX');
+  return { port, env }
 }
 
 const setAppPrefix = (app: INestApplication, prefix: string) => {
